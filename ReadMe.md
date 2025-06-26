@@ -14,19 +14,19 @@ Projet-Bash/ \
 │ ├── cleanFiles.sh # Nettoyage automatique de fichiers temporaires/inutiles \
 │ ├── majPackages.sh # Mise à jour automatisée des paquets système \
 │ └── templateGenerator.sh # Génération de templates de scripts Bash \
-│
+│ \
 ├── script alex/ \
 │ ├── disque.sh # Vérification et rapport de l'espace disque \
 │ ├── optimisation.sh # Optimisations système simples \
 │ ├── planificateur.sh # Planification de tâches récurrentes (crons) \
 │ └── sauvegarde.sh # Script de sauvegarde automatique \
-│
+│ \
 ├── script jimmy/ \
 │ ├── analyse_log.sh # Analyse automatisée de fichiers de logs \
 │ ├── rapport_sys.sh # Génération de rapports système \
 │ ├── synch_repertoire.sh # Synchronisation de répertoires distants \
 │ └── test_reseaux.sh # Outils de test réseau de base \
-│
+│ \
 ├── menu.sh # Menu principal d’accès aux différents scripts \
 └── ReadMe.md # Présentation du projet \
 
