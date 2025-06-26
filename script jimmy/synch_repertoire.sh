@@ -23,11 +23,8 @@ fi
 # Message d’accueil
 echo "Bienvenue dans le script de synchronisation de répertoires !"
 echo "Date : $(date)"
-echo "Version : 1.0"
+echo "Version : 1.1"
 echo "Auteurs : Jimmy RAMSAMYNAÏCK, Sameer VALI ADAM, Alexandre BADOUARD"
-echo
-echo "Ce script synchronise deux répertoires locaux ou distants en utilisant rsync."
-echo "Utilisation : ./synch_repertoire.sh --source <src> --destination <dest> --mode <temps réel|intervalle>"
 echo
 
 # Déclaration des variables
@@ -36,7 +33,7 @@ destination=""
 mode=""
 
 # ---------- MODE TEST INTÉGRÉ AUTOMATIQUE ----------
-# Activé si aucun argument n’est fourni (idéal pour menu)
+# Activé si aucun argument n’est fourni (pratique pour menu ou exécution directe)
 if [[ $# -eq 0 ]]; then
     echo "[TEST] Aucun argument fourni, mode test automatique activé."
     source="/tmp/source_test"
@@ -52,13 +49,7 @@ if [[ $# -eq 0 ]]; then
     echo "[TEST] Destination : $destination"
 fi
 
-# Vérification de rsync
-if ! command -v rsync &>/dev/null; then
-    echo "Erreur : rsync n'est pas installé." >&2
-    exit 1
-fi
-
-# Lecture des arguments s’ils existent
+# Lecture des arguments s’ils sont fournis
 while [[ $# -gt 0 ]]; do
     case $1 in
         --source)
@@ -80,9 +71,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Validation des paramètres requis
+# Validation des paramètres
 if [[ -z "$source" || -z "$destination" || -z "$mode" ]]; then
-    echo "Erreur : tous les paramètres --source, --destination et --mode sont requis." >&2
+    echo "Erreur : paramètres manquants. Veuillez spécifier --source, --destination et --mode." >&2
     exit 1
 fi
 
@@ -101,29 +92,43 @@ if [[ "$mode" != "intervalle" && "$mode" != "temps réel" ]]; then
     exit 1
 fi
 
-# --- Mode intervalle ---
-if [[ "$mode" == "intervalle" ]]; then
-    echo "Mode : intervalle défini (synchronisation toutes les 60 secondes)"
-    while true; do
-        echo ">> Synchronisation en cours..."
-        rsync -av --delete "$source/" "$destination/"
-        echo ">> Synchronisation terminée à $(date)"
-        sleep 60
-    done
+# Vérification des outils requis
+if ! command -v rsync &>/dev/null; then
+    echo "Erreur : rsync n'est pas installé." >&2
+    exit 1
 fi
 
-# --- Mode temps réel ---
+# Mode "intervalle" : exécution unique puis arrêt
+if [[ "$mode" == "intervalle" ]]; then
+    echo "Mode : intervalle (exécution unique)"
+    echo "Synchronisation de $source vers $destination..."
+    rsync -av --delete "$source/" "$destination/"
+    if [[ $? -eq 0 ]]; then
+        echo "✅ Synchronisation terminée avec succès à $(date)"
+    else
+        echo "❌ Erreur lors de la synchronisation." >&2
+    fi
+    exit 0
+fi
+
+# Mode "temps réel" : une seule synchronisation déclenchée par changement
 if [[ "$mode" == "temps réel" ]]; then
     if ! command -v inotifywait &>/dev/null; then
-        echo "Erreur : inotifywait est requis pour le mode temps réel. Installez inotify-tools." >&2
+        echo "Erreur : inotifywait est requis pour le mode temps réel." >&2
         exit 1
     fi
-    echo "Mode : temps réel (détection continue avec inotify)"
-    inotifywait -m -r -e create,modify,delete "$source" | while read -r path action file; do
-        echo ">> Changement détecté : $action sur $file dans $path"
+    echo "Mode : temps réel (en attente de modification dans $source pendant 60s)"
+    inotifywait -r -e create,modify,delete "$source" -q -t 60
+    if [[ $? -eq 0 ]]; then
+        echo "Changement détecté. Lancement de la synchronisation..."
         rsync -av --delete "$source/" "$destination/"
-        echo ">> Synchronisation effectuée à $(date)"
-    done
+        if [[ $? -eq 0 ]]; then
+            echo "✅ Synchronisation effectuée avec succès à $(date)"
+        else
+            echo "❌ Échec de synchronisation." >&2
+        fi
+    else
+        echo "⏳ Aucun changement détecté dans les 60 secondes. Fin du script."
+    fi
+    exit 0
 fi
-
-# Fin du script
