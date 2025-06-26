@@ -1,6 +1,6 @@
 #!/bin/bash
 # Fonction : Créer des templates de projet
-# Auteur : Abdoul Sameer VALI ADAM
+# Auteur : $USER
 
 # === Fonction de création d’un projet HTML simple ===
 creer_projet_html() {
