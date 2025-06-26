@@ -1,14 +1,14 @@
-# 🛠️ Projet Bash - Scripts d’automatisation et d’administration
+🛠️ Projet Bash - Scripts d’automatisation et d’administration
 
 Ce dépôt contient plusieurs scripts Bash simples mais efficaces, conçus dans le cadre d’un module de scripting. Chaque script remplit une fonction spécifique liée à l’organisation de projets, la sécurité ou l’administration système.
 
 ---
 
-## 📁 1. `templateGenerator.sh`
+📁 1. `templateGenerator.sh`
 
-🎯 **Objectif** : Générer automatiquement la structure de base pour différents types de projets.
+🎯 Objectif : Générer automatiquement la structure de base pour différents types de projets.
 
-### ✅ Fonctionnalités :
+✅ Fonctionnalités :
 - Projet HTML :
   - Crée un dossier racine
   - Génère un `index.html` basique
@@ -18,16 +18,16 @@ Ce dépôt contient plusieurs scripts Bash simples mais efficaces, conçus dans 
 
 ---
 
-## 📦 2. `majPackages.sh`
+📦 2. `majPackages.sh`
 
-🎯 **Objectif** : Vérifier régulièrement les mises à jour de paquets via APT et enregistrer un rapport.
+🎯 Objectif : Vérifier régulièrement les mises à jour de paquets via APT et enregistrer un rapport.
 
-### ✅ Fonctionnalités :
+✅ Fonctionnalités :
 - Analyse les mises à jour disponibles
 - Génère un rapport avec horodatage
 - Enregistre le rapport dans le répertoire de l’utilisateur (`/home/$USER/`)
 - Peut être lancé automatiquement via une tâche **cron**
 
-### 📅 Exemple de tâche cron (exécution tous les lundis à 9h) :
+📅 Exemple de tâche cron (exécution tous les lundis à 9h) :
 ```bash
 0 9 * * 1 sudo /home/sameer/Projet-Bash/sameer/majPackages.sh >> /home/$USER/logs_maj.txt 2>&1
