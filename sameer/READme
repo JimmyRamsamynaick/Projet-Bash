@@ -1,28 +1,33 @@
-templateGenerator.sh :
+# 🛠️ Projet Bash - Scripts d’automatisation et d’administration
 
-Création du fichier index.html, dossier css avec un fichier style.css et un dossier js avec un fichier script.js 
+Ce dépôt contient plusieurs scripts Bash simples mais efficaces, conçus dans le cadre d’un module de scripting. Chaque script remplit une fonction spécifique liée à l’organisation de projets, la sécurité ou l’administration système.
 
-majPackages.Sh :
+---
 
-Tâche automatique via cron : tous les lundis à 9h, résultat en sortie dans : /home/$USER/
+## 📁 1. `templateGenerator.sh`
 
-0 9 * * 1 sudo /home/sameer/Projet-Bash/sameer/majPackages.sh >> /home/$USER/logs_maj.txt 2>&1
+🎯 **Objectif** : Générer automatiquement la structure de base pour différents types de projets.
 
-cleanFiles.sh :
+### ✅ Fonctionnalités :
+- Projet HTML :
+  - Crée un dossier racine
+  - Génère un `index.html` basique
+  - Crée un dossier `css/` avec `style.css`
+  - Crée un dossier `js/` avec `script.js`
+- (Extensible avec d’autres types de projets, comme des scripts Bash)
 
-Je créer un fichier contenant password dans le nom, le script le détecte bien
+---
 
-analysSSH.sh :
+## 📦 2. `majPackages.sh`
 
-Pour l’exemple on créer un faux fichier de logs avec un jeu d’essais :
+🎯 **Objectif** : Vérifier régulièrement les mises à jour de paquets via APT et enregistrer un rapport.
 
+### ✅ Fonctionnalités :
+- Analyse les mises à jour disponibles
+- Génère un rapport avec horodatage
+- Enregistre le rapport dans le répertoire de l’utilisateur (`/home/$USER/`)
+- Peut être lancé automatiquement via une tâche **cron**
+
+### 📅 Exemple de tâche cron (exécution tous les lundis à 9h) :
 ```bash
-nano faux_auth.log
-Jun 26 02:45:17 sameer sshd[12345]: Accepted password for root from 192.168.0.5 port 54321 ssh2
-Jun 26 14:12:00 sameer sshd[12346]: Accepted password for sameer from 8.8.8.8 port 54422 ssh2
-Jun 26 03:10:55 sameer sshd[12347]: Accepted publickey for admin from 185.60.216.35 port 65535 ssh2
-Jun 26 09:22:10 sameer sshd[12348]: Failed password for invalid user test from 190.100.50.12 port 60000 ssh2
-
-```
-
-Car dans mon cas je n’ai aucune connexion SSH d’enregistrer.
+0 9 * * 1 sudo /home/sameer/Projet-Bash/sameer/majPackages.sh >> /home/$USER/logs_maj.txt 2>&1
