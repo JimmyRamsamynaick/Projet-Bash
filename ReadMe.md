@@ -62,7 +62,7 @@ chmod +x sameer/*.sh script\ alex/*.sh script\ jimmy/*.sh menu.sh
 
     Sameer : outils système généraux, gestion de paquets et génération de templates
 
-    Alex : scripts de maintenance, planification et sauvegarde
+    Alex : scripts de maintenance, planification, sauvegarde et création du menu principal (menu.sh)
 
     Jimmy : scripts de surveillance, journalisation et tests réseau
 
