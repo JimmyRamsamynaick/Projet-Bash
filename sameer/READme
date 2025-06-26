@@ -1,0 +1,28 @@
+templateGenerator.sh :
+
+Création du fichier index.html, dossier css avec un fichier style.css et un dossier js avec un fichier script.js 
+
+majPackages.Sh :
+
+Tâche automatique via cron : tous les lundis à 9h, résultat en sortie dans : /home/$USER/
+
+0 9 * * 1 sudo /home/sameer/Projet-Bash/sameer/majPackages.sh >> /home/$USER/logs_maj.txt 2>&1
+
+cleanFiles.sh :
+
+Je créer un fichier contenant password dans le nom, le script le détecte bien
+
+analysSSH.sh :
+
+Pour l’exemple on créer un faux fichier de logs avec un jeu d’essais :
+
+```bash
+nano faux_auth.log
+Jun 26 02:45:17 sameer sshd[12345]: Accepted password for root from 192.168.0.5 port 54321 ssh2
+Jun 26 14:12:00 sameer sshd[12346]: Accepted password for sameer from 8.8.8.8 port 54422 ssh2
+Jun 26 03:10:55 sameer sshd[12347]: Accepted publickey for admin from 185.60.216.35 port 65535 ssh2
+Jun 26 09:22:10 sameer sshd[12348]: Failed password for invalid user test from 190.100.50.12 port 60000 ssh2
+
+```
+
+Car dans mon cas je n’ai aucune connexion SSH d’enregistrer.
