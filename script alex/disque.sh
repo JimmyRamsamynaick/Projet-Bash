@@ -1,7 +1,10 @@
 #!/bin/bash
+#!/bin/bash
+#Utilisation : ./optimisation.sh
+#Auteur : Jimmy,Sameer,Alexandre
 
-#Seuil d'alerte en pourcentage (ex : 80%)
-SEUIL=80
+#Seuil d'alerte en pourcentage
+SEUIL=20
 
 #Point de montage à surveiller (ici, la racine "/")
 PARTITION="/"

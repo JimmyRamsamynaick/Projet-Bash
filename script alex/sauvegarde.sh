@@ -23,6 +23,3 @@ echo "Archive créée localement : $DEST_LOCAL/$ARCHIVE_NAME"
 #Fin du script
 echo "Sauvegarde terminée."
 
-#Sauvegarde automatique tout les vendredis à 22H00
-crontab -e
-30 22 * * 5 /tmp
