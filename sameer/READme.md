@@ -26,7 +26,7 @@
 | 📦 **Version actuelle** | 1.29 |
 | 🛡️ **Scripts sécurité** | 2 |
 | ⚙️ **Scripts administration** | 2 |
-| 📅 **Dernière mise à jour** | $(date +%Y-%m-%d) |
+| 📅 **Dernière mise à jour** | 27/06/2025 |
 
 </details>
 
