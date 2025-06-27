@@ -23,7 +23,7 @@
 | Métrique | Valeur |
 |----------|--------|
 | 🔢 **Nombre de scripts** | 4 |
-| 📦 **Version actuelle** | 1.0 |
+| 📦 **Version actuelle** | 1.29 |
 | 🛡️ **Scripts sécurité** | 2 |
 | ⚙️ **Scripts administration** | 2 |
 | 📅 **Dernière mise à jour** | $(date +%Y-%m-%d) |
