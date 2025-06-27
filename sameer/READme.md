@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.29-blue?style=for-the-badge)
 ![Scripts](https://img.shields.io/badge/Scripts-4-green?style=for-the-badge)
 ![Bash](https://img.shields.io/badge/Bash-5.0+-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-red?style=for-the-badge)
