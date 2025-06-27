@@ -289,7 +289,7 @@ SECURE_DIR="$HOME/fichiers_sensibles"    # Dossier de quarantaine
 
 **Développé par Fouarlic Industry**
 
-[🐛 Signaler un bug](https://github.com/user/repo/issues) • [💡 Proposer une amélioration](https://github.com/user/repo/pulls) • [📧 Contact](mailto:contact@fouarlic.com)
+[🐛 Signaler un bug](https://theuselessweb.com/) • [💡 Proposer une amélioration](https://theuselessweb.com/) • [📧 Contact](mailto:contact@fouarlic.com)
 
 ---
 
