@@ -13,6 +13,9 @@ NC='\033[0m' # No Color
 # Répertoire des scripts
 SCRIPT_DIR="/home/jimmy/projet_bash_final/Projet-Bash/dossier_arbo"
 
+# Version des scripts
+SCRIPT_VERSION="1.29"
+
 # Fonction pour afficher le header
 show_header() {
     clear
@@ -27,6 +30,7 @@ show_header() {
     echo -e "${CYAN}║                                                                    ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════════════╝${NC}"
     echo -e "${YELLOW}                        🚀 Menu Principal des Scripts 🚀${NC}"
+    echo -e "${PURPLE}                              Version ${SCRIPT_VERSION}${NC}"
     echo ""
 }
 
@@ -48,12 +52,94 @@ show_menu() {
     echo -e "${BLUE}║${WHITE} 11.${NC}  📝 ${YELLOW}templateGenerator.sh${NC}   - Générateur de templates                   ║"
     echo -e "${BLUE}║${WHITE} 12.${NC}  🌐 ${YELLOW}test_reseaux.sh${NC}        - Test et diagnostic réseau                ║"
     echo -e "${BLUE}╠═══════════════════════════════════════════════════════════════════════════════╣${NC}"
+    echo -e "${BLUE}║${WHITE} 13.${NC}  ❓ ${CYAN}Aide${NC}                    - Liste des commandes disponibles          ║"
+    echo -e "${BLUE}╠═══════════════════════════════════════════════════════════════════════════════╣${NC}"
     echo -e "${BLUE}║${WHITE}  0.${NC}  🚪 ${RED}Quitter${NC}                 - Sortir du menu                           ║"
     echo -e "${BLUE}╚═══════════════════════════════════════════════════════════════════════════════╝${NC}"
     echo ""
 }
 
-# Fonction pour exécuter un script
+# Fonction pour afficher l'aide
+show_help() {
+    clear
+    echo -e "${CYAN}╔═══════════════════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${CYAN}║                                  📚 AIDE                                      ║${NC}"
+    echo -e "${CYAN}╠═══════════════════════════════════════════════════════════════════════════════╣${NC}"
+    echo -e "${CYAN}║                          Version des scripts: ${SCRIPT_VERSION}                          ║${NC}"
+    echo -e "${CYAN}╚═══════════════════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    
+    echo -e "${BLUE}╔═══════════════════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║                            🔧 COMMANDES DISPONIBLES                           ║${NC}"
+    echo -e "${BLUE}╠═══════════════════════════════════════════════════════════════════════════════╣${NC}"
+    echo -e "${BLUE}║                                                                               ║${NC}"
+    echo -e "${BLUE}║ ${WHITE}🔍 analysSSH.sh${NC}           - Analyse les connexions SSH                    ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Surveille les tentatives de connexion SSH${NC}                          ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Détecte les IP suspectes et les attaques par force brute${NC}          ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}📊 analyse_log.sh${NC}         - Analyse des fichiers de logs                 ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Parse et analyse les logs système${NC}                                  ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Génère des statistiques sur les erreurs et événements${NC}             ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}🧹 cleanFiles.sh${NC}          - Nettoyage des fichiers temporaires           ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Supprime les fichiers temporaires et caches${NC}                       ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Libère l'espace disque inutilisé${NC}                                  ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}💾 disque.sh${NC}              - Gestion et analyse des disques               ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Affiche l'utilisation des disques${NC}                                 ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Détecte les répertoires volumineux${NC}                                ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}📦 majPackages.sh${NC}         - Mise à jour des packages                     ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Met à jour les packages système${NC}                                   ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Gère les dépendances et sécurité${NC}                                  ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}⚡ optimisation.sh${NC}        - Optimisation du système                      ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Optimise les performances système${NC}                                 ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Configure les paramètres de performance${NC}                           ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}⏰ planificateur.sh${NC}       - Planification des tâches                     ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Gère les tâches cron et planifiées${NC}                                ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Configure les sauvegardes automatiques${NC}                            ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}📈 rapport_sys.sh${NC}         - Génération de rapports système              ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Génère des rapports complets du système${NC}                           ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Statistiques de performance et santé${NC}                              ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}💾 sauvegarde.sh${NC}          - Sauvegarde des données                       ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Effectue des sauvegardes complètes ou incrémentales${NC}               ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Gère la rotation et la compression des sauvegardes${NC}                ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}🔄 synch_repertoire.sh${NC}    - Synchronisation de répertoires               ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Synchronise des répertoires locaux ou distants${NC}                    ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Maintient la cohérence des données${NC}                                ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}📝 templateGenerator.sh${NC}   - Générateur de templates                       ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Crée des templates de configuration${NC}                               ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Génère des scripts personnalisés${NC}                                  ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}║ ${WHITE}🌐 test_reseaux.sh${NC}        - Test et diagnostic réseau                    ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Teste la conectivité réseau${NC}                                        ║"
+    echo -e "${BLUE}║   ${YELLOW}→ Diagnostique les problèmes de connexion${NC}                           ║"
+    echo -e "${BLUE}║                                                                               ║"
+    echo -e "${BLUE}╚═══════════════════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    
+    echo -e "${GREEN}╔═══════════════════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${GREEN}║                              💡 CONSEILS D'UTILISATION                        ║${NC}"
+    echo -e "${GREEN}╠═══════════════════════════════════════════════════════════════════════════════╣${NC}"
+    echo -e "${GREEN}║                                                                               ║${NC}"
+    echo -e "${GREEN}║ • ${WHITE}Tous les scripts sont en version ${SCRIPT_VERSION}${NC}                                  ║"
+    echo -e "${GREEN}║ • ${WHITE}Exécutez avec les privilèges appropriés (sudo si nécessaire)${NC}           ║"
+    echo -e "${GREEN}║ • ${WHITE}Vérifiez les logs après chaque exécution${NC}                              ║"
+    echo -e "${GREEN}║ • ${WHITE}Testez d'abord sur un environnement de développement${NC}                  ║"
+    echo -e "${GREEN}║ • ${WHITE}Consultez la documentation de chaque script pour plus de détails${NC}      ║"
+    echo -e "${GREEN}║                                                                               ║"
+    echo -e "${GREEN}╚═══════════════════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    
+    echo -e "${PURPLE}📋 Appuyez sur Entrée pour revenir au menu principal...${NC}"
+    read
+}
 execute_script() {
     local script_name=$1
     local script_path="${SCRIPT_DIR}/${script_name}"
@@ -96,7 +182,7 @@ main() {
         show_header
         show_menu
         
-        echo -e "${WHITE}🎯 Choisissez une option (0-12): ${NC}\c"
+        echo -e "${WHITE}🎯 Choisissez une option (0-13): ${NC}\c"
         read choice
         
         case $choice in
@@ -136,6 +222,9 @@ main() {
             12)
                 execute_script "test_reseaux.sh"
                 ;;
+            13)
+                show_help
+                ;;
             0)
                 clear
                 echo -e "${GREEN}╔═══════════════════════════════════════════════════════════════════╗${NC}"
@@ -149,7 +238,7 @@ main() {
                 exit 0
                 ;;
             *)
-                echo -e "${RED}❌ Option invalide. Veuillez choisir un nombre entre 0 et 12.${NC}"
+                echo -e "${RED}❌ Option invalide. Veuillez choisir un nombre entre 0 et 13.${NC}"
                 echo -e "${PURPLE}📋 Appuyez sur Entrée pour continuer...${NC}"
                 read
                 ;;
