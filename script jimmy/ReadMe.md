@@ -1,9 +1,13 @@
 # 🔧 Scripts d'Administration Système Linux
 
+<div align="center">
+
 ![Version](https://img.shields.io/badge/version-1.29-blue.svg)
 ![Scripts](https://img.shields.io/badge/scripts-4-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-yellow.svg)
 ![Bash](https://img.shields.io/badge/bash-4.0%2B-orange.svg)
+
+</div>
 
 Ce dépôt contient une suite complète de scripts Bash destinés à automatiser des tâches courantes d'administration système Linux. Chaque script est conçu pour être robuste, modulaire et facilement adaptable à vos besoins spécifiques.
 
