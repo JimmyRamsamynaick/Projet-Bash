@@ -26,9 +26,9 @@ Cette collection de scripts Bash offre une interface utilisateur interactive et 
 
 | Développeur | Rôle | Spécialité |
 |-------------|------|------------|
-| **Jimmy** | Lead Developer | Architecture & Interface |
-| **Sameer** | System Administrator | Sécurité & Performance |
-| **Alexandre** | DevOps Engineer | Automatisation & Déploiement |
+| **Jimmy** | Dev | Architecture & Interface |
+| **Sameer** | Dev | Sécurité & Performance |
+| **Alexandre** | Dev | Automatisation & Déploiement |
 
 </div>
 
