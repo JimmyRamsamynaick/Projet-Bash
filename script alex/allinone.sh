@@ -33,7 +33,7 @@ afficher_banner() {
 # Fonction d'affichage du menu principal
 afficher_menu_principal() {
     echo -e "${WHITE}┌─────────────────────────────────────────────────────────────────────────────┐${NC}"
-    echo -e "${WHITE}│${BLUE}                           MENU PRINCIPAL                                   ${WHITE}│${NC}"
+    echo -e "${WHITE}│${BLUE}                           MENU PRINCIPAL    (h pour aide)                  ${WHITE}│${NC}"
     echo -e "${WHITE}├─────────────────────────────────────────────────────────────────────────────┤${NC}"
     echo -e "${WHITE}│ ${GREEN}1.${NC}  📊 Analyse des logs Apache                                          ${WHITE}│${NC}"
     echo -e "${WHITE}│ ${GREEN}2.${NC}  🔐 Analyse des connexions SSH                                       ${WHITE}│${NC}"
@@ -617,3 +617,206 @@ tester_reseau() {
         done
         
     } | tee "$LOG_FILE"
+
+echo ""
+    echo -e "${GREEN}✅ Résultats sauvegardés dans : $LOG_FILE${NC}"
+    
+    # Test de résolution DNS
+    echo -e "${BLUE}🔍 Test de résolution DNS...${NC}"
+    echo "" >> "$LOG_FILE"
+    echo "Test de résolution DNS - $(date)" >> "$LOG_FILE"
+    echo "---------------------------------" >> "$LOG_FILE"
+    
+    for SERVER in "${SERVERS[@]}"; do
+        if nslookup "$SERVER" >/dev/null 2>&1; then
+            echo "✅ Résolution DNS de $SERVER réussie" | tee -a "$LOG_FILE"
+        else
+            echo "❌ Échec de résolution DNS de $SERVER" | tee -a "$LOG_FILE"
+        fi
+    done
+    
+    # Affichage des informations réseau
+    echo -e "${BLUE}🌐 Informations réseau actuelles :${NC}"
+    echo "" >> "$LOG_FILE"
+    echo "Informations réseau - $(date)" >> "$LOG_FILE"
+    echo "-----------------------------" >> "$LOG_FILE"
+    
+    if command -v ip &> /dev/null; then
+        echo "Interfaces réseau :" | tee -a "$LOG_FILE"
+        ip addr show | grep -E "inet |UP|DOWN" | tee -a "$LOG_FILE"
+    else
+        echo "Configuration réseau :" | tee -a "$LOG_FILE"
+        ifconfig 2>/dev/null | grep -E "inet |UP|DOWN" | tee -a "$LOG_FILE"
+    fi
+    
+    echo "" | tee -a "$LOG_FILE"
+    echo "Table de routage :" | tee -a "$LOG_FILE"
+    if command -v ip &> /dev/null; then
+        ip route | head -10 | tee -a "$LOG_FILE"
+    else
+        route -n 2>/dev/null | tee -a "$LOG_FILE"
+    fi
+    
+    read -p "Appuyez sur Entrée pour continuer..."
+}
+
+# Fonction d'aide
+afficher_aide() {
+    echo -e "${YELLOW}📚 Aide du script d'administration${NC}"
+    echo
+    echo -e "${WHITE}Ce script propose les fonctionnalités suivantes :${NC}"
+    echo
+    echo -e "${GREEN}1. Analyse des logs Apache${NC} - Analyse les fichiers de logs pour détecter les erreurs et les IP suspectes"
+    echo -e "${GREEN}2. Analyse des connexions SSH${NC} - Surveille les connexions SSH et détecte les activités suspectes"
+    echo -e "${GREEN}3. Nettoyeur de fichiers sensibles${NC} - Recherche et sécurise les fichiers contenant des informations sensibles"
+    echo -e "${GREEN}4. Surveillance de l'espace disque${NC} - Monitore l'utilisation de l'espace disque"
+    echo -e "${GREEN}5. Vérification des mises à jour${NC} - Vérifie les mises à jour disponibles pour le système"
+    echo -e "${GREEN}6. Optimisation système${NC} - Nettoie les fichiers temporaires et optimise le système"
+    echo -e "${GREEN}7. Planificateur de tâches${NC} - Gère les tâches cron"
+    echo -e "${GREEN}8. Rapport système${NC} - Génère un rapport complet du système"
+    echo -e "${GREEN}9. Sauvegarde de données${NC} - Crée des archives de sauvegarde"
+    echo -e "${GREEN}10. Synchronisation de répertoires${NC} - Synchronise des répertoires avec rsync"
+    echo -e "${GREEN}11. Générateur de templates${NC} - Crée des structures de projets"
+    echo -e "${GREEN}12. Test de connectivité réseau${NC} - Teste la connectivité réseau et DNS"
+    echo
+    echo -e "${YELLOW}Tous les rapports sont sauvegardés dans : $LOG_DIR${NC}"
+    echo
+    read -p "Appuyez sur Entrée pour continuer..."
+}
+
+# Fonction de vérification des prérequis
+verifier_prerequis() {
+    echo -e "${BLUE}🔍 Vérification des prérequis...${NC}"
+    
+    local erreurs=0
+    
+    # Vérification des commandes essentielles
+    local commandes_requises=("awk" "grep" "find" "tar" "df")
+    
+    for cmd in "${commandes_requises[@]}"; do
+        if ! command -v "$cmd" &> /dev/null; then
+            echo -e "${RED}❌ Commande manquante : $cmd${NC}"
+            ((erreurs++))
+        fi
+    done
+    
+    # Vérification des permissions d'écriture
+    if [ ! -w "$LOG_DIR" ]; then
+        echo -e "${RED}❌ Impossible d'écrire dans le répertoire de logs : $LOG_DIR${NC}"
+        ((erreurs++))
+    fi
+    
+    if [ $erreurs -eq 0 ]; then
+        echo -e "${GREEN}✅ Tous les prérequis sont satisfaits${NC}"
+        return 0
+    else
+        echo -e "${RED}❌ $erreurs erreur(s) détectée(s). Certaines fonctionnalités peuvent ne pas fonctionner.${NC}"
+        return 1
+    fi
+}
+
+# Fonction de nettoyage à la sortie
+cleanup() {
+    echo
+    echo -e "${YELLOW}🧹 Nettoyage en cours...${NC}"
+    
+    # Suppression des fichiers temporaires créés par le script
+    find "$LOG_DIR" -name "*.tmp" -mtime +1 -delete 2>/dev/null
+    
+    echo -e "${GREEN}✅ Script terminé proprement${NC}"
+    echo -e "${BLUE}📁 Les rapports sont disponibles dans : $LOG_DIR${NC}"
+    exit 0
+}
+
+# Gestionnaire de signaux
+trap cleanup EXIT INT TERM
+
+# Fonction principale
+main() {
+    # Vérification des prérequis au démarrage
+    if ! verifier_prerequis; then
+        read -p "Continuer malgré les erreurs ? (y/n) : " continuer
+        if [[ "$continuer" != "y" && "$continuer" != "Y" ]]; then
+            echo -e "${RED}❌ Arrêt du script${NC}"
+            exit 1
+        fi
+    fi
+    
+    # Boucle principale du menu
+    while true; do
+        afficher_banner
+        afficher_menu_principal
+        
+        read -p "$(echo -e ${WHITE}Choisissez une option ${BLUE}[0-12]${WHITE} : ${NC})" choix
+        
+        case $choix in
+            1)
+                analyser_logs_apache
+                ;;
+            2)
+                analyser_ssh
+                ;;
+            3)
+                nettoyer_fichiers_sensibles
+                ;;
+            4)
+                surveiller_disque
+                ;;
+            5)
+                verifier_maj
+                ;;
+            6)
+                optimiser_systeme
+                ;;
+            7)
+                planificateur_taches
+                ;;
+            8)
+                generer_rapport_systeme
+                ;;
+            9)
+                sauvegarder_donnees
+                ;;
+            10)
+                synchroniser_repertoires
+                ;;
+            11)
+                generer_templates
+                ;;
+            12)
+                tester_reseau
+                ;;
+            "h"|"help"|"aide")
+                afficher_aide
+                ;;
+            0|"q"|"quit"|"exit")
+                clear
+                echo -e "${GREEN}🚪 Au revoir !${NC}"
+                cleanup
+                ;;
+            *)
+                echo -e "${RED}❌ Choix invalide. Utilisez 'h' pour l'aide.${NC}"
+                sleep 2
+                ;;
+        esac
+    done
+}
+
+# Vérification si le script est exécuté directement
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # Vérification de la version de Bash
+    if [ "${BASH_VERSION%%.*}" -lt 4 ]; then
+        echo -e "${RED}❌ Bash version 4.0+ requis. Version actuelle : $BASH_VERSION${NC}"
+        exit 1
+    fi
+    
+    # Message de bienvenue
+    echo -e "${CYAN}🚀 Démarrage du script d'administration système...${NC}"
+    sleep 1
+    
+    # Lancement du programme principal
+    main "$@"
+fi
+
+# Fin du script
+echo -e "${GREEN}✨ Script d'administration système terminé${NC}"
