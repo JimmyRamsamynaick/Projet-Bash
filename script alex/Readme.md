@@ -3,10 +3,10 @@
 # 🚀 Projet Bash Final
 ## Suite d'Administration Système
 
-[![Version](https://img.shields.io/badge/Version-1.29-blue.svg?style=flat-square)](https://github.com/votre-repo)
+[![Version](https://img.shields.io/badge/Version-1.29-blue.svg?style=flat-square)](https://streamable.com/lf027o)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 [![Bash](https://img.shields.io/badge/Shell-Bash-4EAA25.svg?style=flat-square)](https://www.gnu.org/software/bash/)
-[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red.svg?style=flat-square)](https://github.com/votre-repo)
+[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red.svg?style=flat-square)](https://streamable.com/lf027o)
 
 *Une collection complète de scripts Bash pour l'administration système*
 
@@ -91,7 +91,7 @@ Cette collection de scripts Bash offre une interface utilisateur interactive et 
 
 ```bash
 # 1. Cloner le projet
-git clone https://github.com/votre-repo/projet-bash-final.git
+git clone https://streamable.com/lf027o
 cd projet-bash-final
 
 # 2. Permissions
@@ -368,9 +368,9 @@ chmod +x *.sh
 
 ### 💬 Besoin d'Aide ?
 
-[![GitHub Issues](https://img.shields.io/badge/Issues-GitHub-red.svg?style=flat-square)](https://github.com/votre-repo/issues)
-[![Discord](https://img.shields.io/badge/Discord-Community-7289da.svg?style=flat-square)](https://discord.gg/votre-serveur)
-[![Documentation](https://img.shields.io/badge/Docs-Wiki-blue.svg?style=flat-square)](https://github.com/votre-repo/wiki)
+[![GitHub Issues](https://img.shields.io/badge/Issues-GitHub-red.svg?style=flat-square)](https://streamable.com/lf027o)
+[![Discord](https://img.shields.io/badge/Discord-Community-7289da.svg?style=flat-square)](https://streamable.com/lf027o)
+[![Documentation](https://img.shields.io/badge/Docs-Wiki-blue.svg?style=flat-square)](https://streamable.com/lf027o)
 
 </div>
 
@@ -385,7 +385,7 @@ chmod +x *.sh
 
 ```bash
 # 1. Fork du projet
-git fork https://github.com/votre-repo/projet-bash-final
+git fork https://streamable.com/lf027o
 
 # 2. Créer une branche
 git checkout -b feature/nouvelle-fonctionnalite
@@ -411,8 +411,8 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de
 
 **Donnez-lui une étoile !** ⭐
 
-[![GitHub Stars](https://img.shields.io/github/stars/votre-repo/projet-bash-final.svg?style=social&label=Star)](https://github.com/votre-repo/projet-bash-final)
-[![GitHub Forks](https://img.shields.io/github/forks/votre-repo/projet-bash-final.svg?style=social&label=Fork)](https://github.com/votre-repo/projet-bash-final/fork)
+[![GitHub Stars](https://img.shields.io/github/stars/votre-repo/projet-bash-final.svg?style=social&label=Star)](https://streamable.com/lf027o)
+[![GitHub Forks](https://img.shields.io/github/forks/votre-repo/projet-bash-final.svg?style=social&label=Fork)](https://streamable.com/lf027o)
 
 ---
 
